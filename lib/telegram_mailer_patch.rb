@@ -17,9 +17,10 @@ module TelegramMailerPatch
   
   module ClassMethods
 
-    def speak(msg, channel, attachment=nil, token=nil)
+    def speak(msg, channel, attachment=nil)
       Rails.logger.info("TELEGRAM SPEAK #{msg} => #{channel}")
-      token = Setting.plugin_redmine_telegram_email[:telegram_bot_token] if not token
+      token = Setting.plugin_redmine_telegram_email[:telegram_bot_token]
+      Rails.logger.info("TELEGRAM TOKEN EMPTY, PLEASE SET IT IN PLUGIN SETTINGS") if token.nil? || token.empty?
       proxyurl = Setting.plugin_redmine_telegram_email[:proxyurl]
       
       telegram_url = "https://api.telegram.org/bot#{token}/sendMessage"
@@ -109,7 +110,7 @@ module TelegramMailerPatch
           end
         end
         if telegram_chat_id != 0
-          Mailer.speak(msg, telegram_chat_id, attachment, token)
+          Mailer.speak(msg, telegram_chat_id, attachment)
           Rails.logger.info("SPEAK TO TELEGRAM #{telegram_chat_id} #{attachment} #{user.login}")
         end
         if telegram_disable_email != 0 and telegram_chat_id != 0
@@ -129,7 +130,6 @@ module TelegramMailerPatch
       issue_url = url_for(:controller => 'issues', :action => 'show', :id => issue, :anchor => "change-#{journal.id}")
       users = to_users + cc_users
       journal_details = journal.visible_details(users.first)
-      token = Setting.plugin_redmine_telegram_email[:telegram_bot_token]
 
       msg = "<b>[#{escape issue.project}]</b>\n<a href='#{issue_url}'>#{escape issue}</a> #{mentions journal.notes if Setting.plugin_redmine_telegram_email[:auto_mentions] == '1'}\n<b>#{journal.user.to_s}</b> #{l(:field_updated_on)}"
       Rails.logger.info("TELEGRAM Edit Issue [#{issue.project} - #{issue} ##{issue_url}]")
@@ -151,7 +151,7 @@ module TelegramMailerPatch
           end
         end
         if telegram_chat_id != 0
-          Mailer.speak(msg, telegram_chat_id, attachment, token)
+          Mailer.speak(msg, telegram_chat_id, attachment)
           Rails.logger.info("SPEAK TO TELEGRAM #{telegram_chat_id} #{attachment} #{user.login}")
         end
         if telegram_disable_email != 0 and telegram_chat_id != 0
