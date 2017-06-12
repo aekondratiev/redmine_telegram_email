@@ -9,6 +9,11 @@
 </p>
 
 <p>
+        <label for="settings_selfupdate_dont_send">Dont send to Telegram when user is author of issue or comment</label>
+        <input type="checkbox" id="settings_selfupdate_dont_send" value="1" name="settings[selfupdate_dont_send]" <%= settings['selfupdate_dont_send'] == '1' ? 'checked="checked"' : '' %> />
+</p>
+
+<p>
 	<label for="settings_display_watchers">Display Watchers?</label>
 	<select id="settings_display_watchers" value="<%= settings['display_watchers'] %>" name="settings[display_watchers]">
 		<option value="yes">Yes</option>
@@ -24,11 +29,6 @@
 <p>
 	<label for="settings_new_include_description">Details in New Issue?</label>
 	<input type="checkbox" id="settings_new_include_description" value="1" name="settings[new_include_description]" <%= settings['new_include_description'] == '1' ? 'checked="checked"' : '' %> />
-</p>
-
-<p>
-	<label for="settings_post_updates">Post Issue Updates?</label>
-	<input type="checkbox" id="settings_post_updates" value="1" name="settings[post_updates]" <%= settings['post_updates'] == '1' ? 'checked="checked"' : '' %> />
 </p>
 
 <p>

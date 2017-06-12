@@ -20,7 +20,8 @@ Redmine::Plugin.register :redmine_telegram_email do
 			'new_include_description' => 1,
 			'updated_include_description' => 1,
 			'use_proxy' => 0,
-			'proxyurl' => nil
+			'proxyurl' => nil,
+			'selfupdate_dont_send' => 0
 		},
 		:partial => 'settings/telegram_email_settings'
 end

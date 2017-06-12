@@ -101,7 +101,7 @@ module TelegramMailerPatch
       } if Setting.plugin_redmine_telegram_email[:display_watchers] == 'yes'
 
       users.each do |user|
-        next if user.id.to_i == issue.author_id.to_i
+        next if user.id.to_i == issue.author_id.to_i and Setting.plugin_redmine_telegram_email[:selfupdate_dont_send] == '1'
         telegram_chat_id = 0
         telegram_disable_email = 0
         user.custom_field_values.each do |telegram_field|
@@ -142,7 +142,7 @@ module TelegramMailerPatch
       attachment[:fields] = journal.details.map { |d| detail_to_field d }
 
       users.each do |user|
-        next if user.id.to_i == journal.user.id.to_i
+        next if user.id.to_i == journal.user.id.to_i and Setting.plugin_redmine_telegram_email[:selfupdate_dont_send] == '1'
         telegram_chat_id = 0
         telegram_disable_email = 0
         user.custom_field_values.each do |telegram_field|

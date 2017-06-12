@@ -23,6 +23,12 @@ Restart Redmine, and you should see the plugin show up in the Plugins page.
 
 ## Using
 
+### Set bot token into settings
+
+First of all go into `http://example.com/settings/plugin/redmine_telegram_email` and set some settings, important is **Telegram BOT Token**
+
+![Custom field](images/redmine_telegram_email_settings.png)
+
 ### Creating custom fields
 
 Create two user custom fields: `http://example.com/custom_fields/new?utf8=✓&type=UserCustomField` named **Telegram Channel** (text) and **Telegram disable email** (boolean, default no, checkboxes).
