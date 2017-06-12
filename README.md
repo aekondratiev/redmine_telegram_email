@@ -57,7 +57,7 @@ Then start migration database to new version
 
 	bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 
-Last step - restart your web-server to apply changes.
+Last step - restart Redmine.
 
 Now you can use last version.
 
