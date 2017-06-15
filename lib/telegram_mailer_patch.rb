@@ -18,9 +18,9 @@ module TelegramMailerPatch
   module ClassMethods
 
     def speak(msg, channel, attachment=nil)
-      Rails.logger.info("TELEGRAM SPEAK #{msg} => #{channel}")
+      Rails.logger.info("TELEGRAM EMAIL SPEAK #{msg} => #{channel}")
       token = Setting.plugin_redmine_telegram_email[:telegram_bot_token]
-      Rails.logger.info("TELEGRAM TOKEN EMPTY, PLEASE SET IT IN PLUGIN SETTINGS") if token.nil? || token.empty?
+      Rails.logger.info("TELEGRAM EMAIL TOKEN EMPTY, PLEASE SET IT IN PLUGIN SETTINGS") if token.nil? || token.empty?
       proxyurl = Setting.plugin_redmine_telegram_email[:proxyurl]
       
       telegram_url = "https://api.telegram.org/bot#{token}/sendMessage"
@@ -60,9 +60,9 @@ module TelegramMailerPatch
           client.keep_alive_timeout = 2
           client.ssl_config.timeout = 2
           conn = client.post_async(telegram_url, params)
-          Rails.logger.info("TELEGRAM SEND CODE: #{conn.pop.status_code}")
+          Rails.logger.info("TELEGRAM EMAIL SEND CODE: #{conn.pop.status_code}")
         rescue Exception => e
-          Rails.logger.warn("TELEGRAM CANNOT CONNECT TO #{telegram_url} RETRY ##{retries}, ERROR #{e}")
+          Rails.logger.warn("TELEGRAM EMAIL CANNOT CONNECT TO #{telegram_url} RETRY ##{retries}, ERROR #{e}")
           retry if (retries += 1) < 5
         end
       end
