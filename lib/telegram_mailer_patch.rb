@@ -45,29 +45,29 @@ module TelegramMailerPatch
       end
 
       params[:text] = msg
-      
-      begin
-        if Setting.plugin_redmine_telegram_email[:use_proxy] == '1'
-          client = HTTPClient.new(proxyurl)
-        else
-          client = HTTPClient.new
-        end
-        # client.ssl_config.cert_store.set_default_paths
-        # client.ssl_config.ssl_version = "SSLv23"
-        # client.post_async url, {:payload => params.to_json}
-        client.connect_timeout = 1
-        client.send_timeout = 1
-        client.receive_timeout = 1
-        client.keep_alive_timeout = 1
-        client.ssl_config.timeout = 1
-        conn = client.post_async(telegram_url, params)
-        Rails.logger.info("TELEGRAM SEND CODE: #{conn.pop.status_code}")
-      rescue Exception => e
-        Rails.logger.warn("TELEGRAM CANNOT CONNECT TO #{telegram_url}")
-        Rails.logger.warn(e)
-      end
-    end
 
+      Thread.new do
+        retries = 0
+        begin
+          if Setting.plugin_redmine_telegram_email[:use_proxy] == '1'
+            client = HTTPClient.new(proxyurl)
+          else
+            client = HTTPClient.new
+          end
+          client.connect_timeout = 2
+          client.send_timeout = 2
+          client.receive_timeout = 2
+          client.keep_alive_timeout = 2
+          client.ssl_config.timeout = 2
+          conn = client.post_async(telegram_url, params)
+          Rails.logger.info("TELEGRAM SEND CODE: #{conn.pop.status_code}")
+        rescue Exception => e
+          Rails.logger.warn("TELEGRAM CANNOT CONNECT TO #{telegram_url} RETRY ##{retries}, ERROR #{e}")
+          retry if (retries += 1) < 5
+        end
+      end
+
+    end
   end
   
   module InstanceMethods
