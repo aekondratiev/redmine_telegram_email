@@ -19,9 +19,9 @@ module TelegramMailerPatch
 
     def speak(msg, channel, attachment=nil)
       Rails.logger.info("TELEGRAM EMAIL SPEAK #{msg} => #{channel}")
-      token = Setting.plugin_redmine_telegram_email[:telegram_bot_token]
+      token = Setting.plugin_redmine_telegram_email['telegram_bot_token']
       Rails.logger.info("TELEGRAM EMAIL TOKEN EMPTY, PLEASE SET IT IN PLUGIN SETTINGS") if token.nil? || token.empty?
-      proxyurl = Setting.plugin_redmine_telegram_email[:proxyurl]
+      proxyurl = Setting.plugin_redmine_telegram_email['proxyurl']
       
       telegram_url = "https://api.telegram.org/bot#{token}/sendMessage"
       
@@ -49,7 +49,7 @@ module TelegramMailerPatch
       Thread.new do
         retries = 0
         begin
-          if Setting.plugin_redmine_telegram_email[:use_proxy] == '1'
+          if Setting.plugin_redmine_telegram_email['use_proxy'] == '1'
             client = HTTPClient.new(proxyurl)
           else
             client = HTTPClient.new
@@ -76,11 +76,11 @@ module TelegramMailerPatch
       issue_url = url_for(:controller => 'issues', :action => 'show', :id => issue)
       users = to_users + cc_users
 
-      msg = "<b>[#{escape issue.project}]</b>\n<a href='#{issue_url}'>#{escape issue}</a> #{mentions issue.description if Setting.plugin_redmine_telegram_email[:auto_mentions] == '1'}\n<b>#{escape issue.author}</b> #{l(:field_created_on)}\n"
+      msg = "<b>[#{escape issue.project}]</b>\n<a href='#{issue_url}'>#{escape issue}</a> #{mentions issue.description if Setting.plugin_redmine_telegram_email['auto_mentions'] == '1'}\n<b>#{escape issue.author}</b> #{l(:field_created_on)}\n"
       Rails.logger.info("TELEGRAM Add Issue [#{issue.project.name} - #{issue.tracker.name} ##{issue.id}] (#{issue.status.name}) #{issue.subject}")
       
       attachment = {}
-      attachment[:text] = escape issue.description if issue.description if Setting.plugin_redmine_telegram_email[:new_include_description] == '1'
+      attachment[:text] = escape issue.description if issue.description if Setting.plugin_redmine_telegram_email['new_include_description'] == '1'
       attachment[:fields] = [{
         :title => I18n.t("field_status"),
         :value => escape(issue.status.to_s),
