@@ -1,5 +1,5 @@
 <pre>
-	Create two <a href="/custom_fields/new?utf8=%E2%9C%93&type=UserCustomField" target="_blank">user custom fields:</a> named <b>Telegram Channel</b>(text) and <b>Telegram disable email</b>(boolean, default no, checkboxes).
+	Create two <a href="/custom_fields/new?utf8=%E2%9C%93&type=UserCustomField" target="_blank">user custom fields:</a> named <b>Telegram Channel</b>(text) and <b>Telegram disable</b>(boolean, default no, checkboxes).
 	And you can use them into <a href="/my/account" target="_blank">Every user account</a>
 </pre>
 
@@ -22,21 +22,6 @@
 </p>
 
 <p>
-	<label for="settings_auto_mentions">Convert names to "mentions"</label>
-	<input type="checkbox" id="settings_auto_mentions" value="1" name="settings[auto_mentions]" <%= settings['auto_mentions'] == '1' ? 'checked="checked"' : '' %> />
-</p>
-
-<p>
-	<label for="settings_new_include_description">Details in New Issue?</label>
-	<input type="checkbox" id="settings_new_include_description" value="1" name="settings[new_include_description]" <%= settings['new_include_description'] == '1' ? 'checked="checked"' : '' %> />
-</p>
-
-<p>
-	<label for="settings_updated_include_description">Details in Issue Updates?</label>
-	<input type="checkbox" id="settings_updated_include_description" value="1" name="settings[updated_include_description]" <%= settings['updated_include_description'] == '1' ? 'checked="checked"' : '' %> />
-</p>
-
-<p>
 	<label for="settings_use_proxy">Use a proxy?</label>
 	<input type="checkbox" id="settings_use_proxy" value="1" name="settings[use_proxy]" <%= settings['use_proxy'] == '1' ? 'checked="checked"' : '' %> />
 </p>
@@ -48,3 +33,4 @@
 <p>
 	(ex. http://proxy.example.com:8080 )
 </p>
+

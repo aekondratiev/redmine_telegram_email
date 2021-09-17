@@ -1,4 +1,2 @@
-*.sublime-project
-*.sublime-workspace
-Gemfile.lock
 .idea
+Gemfile.lock
