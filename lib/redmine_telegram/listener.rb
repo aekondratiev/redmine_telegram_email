@@ -77,7 +77,7 @@ class TelegramListener < Redmine::Hook::Listener
         if telegram_field.custom_field.name.to_s == 'Telegram Channel' and telegram_field.value.to_i != 0
           telegram_chat_id = telegram_field.value.to_i
         end
-        if telegram_field.custom_field.name.to_s == 'Telegram disable'
+        if telegram_field.custom_field.name.to_s == 'Telegram disable email'
           telegram_disable = telegram_field.value.to_i
         end
       end
