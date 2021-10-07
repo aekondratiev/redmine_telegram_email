@@ -33,7 +33,7 @@ First of all go into `http://example.com/settings/plugin/redmine_telegram_email`
 
 ### Creating custom fields
 
-Create two user custom fields: `http://example.com/custom_fields/new?utf8=✓&type=UserCustomField` named **Telegram Channel** (text) and **Telegram disable email** (boolean, default no, checkboxes).
+Create two user custom fields: `http://example.com/custom_fields/new?utf8=✓&type=UserCustomField` named **Telegram Channel** (text) and **Telegram disable email** (boolean, default no, checkboxes). **FIELDS NAMES ARE CASE SENSITIVE**
 
 ![Custom field](images/redmine_telegram_email_customfield2.png)
 
