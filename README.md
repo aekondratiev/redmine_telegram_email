@@ -1,5 +1,7 @@
 # Telegram messages plugin for Redmine
 
+For Russian speakers [README.RUS.md](https://github.com/aekondratiev/redmine_telegram_email/blob/master/README.RUS.md)
+
 Plugin updated to redmine 4.1, need some tests, if you have troubles please create issue
 
 This plugin send messages as email, only to the Telegram. So you can disable email and use Telegram only, or use both.  
